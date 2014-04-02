@@ -1,14 +1,16 @@
 
-// Use Parse.Cloud.define to define as many cloud functions as you want.
-// For example:
 Parse.Cloud.define("tapatalk", function(request, response) {
-  testTapatalk(response);
+  getForumConfig('https://support.tapatalk.com/mobiquo/mobiquo.php', response);
 });
 
-function testTapatalk(response) {
+Parse.Cloud.define("tottenham", function(request, response) {
+  getForumConfig('http://www.tottenhamhotspurs.tv/forum/mobiquo/mobiquo.php', response);
+});
+
+function getForumConfig(url, response) {
   Parse.Cloud.httpRequest({
     method: 'POST',
-    url: 'https://support.tapatalk.com/mobiquo/mobiquo.php',
+    url: url,
     headers: {
       'Content-Type': 'text/xml'
     },
