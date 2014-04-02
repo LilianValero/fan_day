@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "FanDay": {
+            "applicationId": "<APP ID HERE>",
+            "masterKey": "<MASTER KEY HERE>"
+        },
+        "_default": {
+            "link": "FanDay"
+        }
+    },
+    "global": {
+        "parseVersion": "1.2.18"
+    }
+}
