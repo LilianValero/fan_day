@@ -1,0 +1,26 @@
+{
+  "name": "fan_day",
+  "version": "0.0.0",
+  "description": "fan_day",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/LilianValero/fan_day.git"
+  },
+  "keywords": [
+    "xmlrpc",
+    "tapatalk"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LilianValero/fan_day/issues"
+  },
+  "homepage": "https://github.com/LilianValero/fan_day",
+  "dependencies": {
+    "xmlrpc": "^1.2.0"
+  }
+}
