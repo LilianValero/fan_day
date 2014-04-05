@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/LilianValero/fan_day",
   "dependencies": {
-    "xmlrpc": "^1.2.0"
+    "xmlrpc": "^1.2.0",
+    "underscore": "^1.6.0"
   }
 }
