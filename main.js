@@ -32,7 +32,7 @@ function getTopics(forumId) {
 
 function getThread(topics) {
   // Here we could use e.g. the most recent topic; let's use the TOT vs. ARS match topic with ID 35872
-  callMethod('get_thread', ['35872'], getPosts);
+  callMethod('get_thread', ['35872', 0, 49, true], getPosts);
 }
 
 function getPosts(thread) {
