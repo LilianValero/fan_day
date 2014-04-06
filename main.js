@@ -32,15 +32,24 @@ function getTopics(forumId) {
 
 function getThread(topics) {
   // Here we could use e.g. the most recent topic; let's use the TOT vs. ARS match topic with ID 35872
-  callMethod('get_thread', ['35872', 0, 49, true], getPosts);
+  getPosts('35872', 0);
 }
 
-function getPosts(thread) {
-  var totalPostCount = thread.total_post_num;
-  var retrievedPostCount = thread.posts.length;
+function getPosts(topicId, postStartNumber) {
+  var maxPostCountPerRequest = 50
+  callMethod('get_thread', [topicId, postStartNumber, postStartNumber + maxPostCountPerRequest - 1, true], parsePosts);
+}
+
+function parsePosts(thread) {
   var postInfos = _.map(thread.posts, function(post) { return postInfo(post); });
   console.log('postInfos', postInfos);
-  console.log('TODO: Get remaining ' + (totalPostCount - retrievedPostCount) + ' posts')
+
+  if (thread.posts.length > 0) {
+    // Get next posts
+    var totalPostCount = thread.total_post_num;
+    var lastPostCounter = _.last(thread.posts).post_count;
+    if (lastPostCounter < totalPostCount) getPosts(thread.topic_id, lastPostCounter);
+  }
 }
 
 function postInfo(post) {
