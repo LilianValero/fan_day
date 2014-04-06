@@ -2,7 +2,9 @@
 
 var xmlrpc = require('xmlrpc');
 var _ = require('underscore');
+var fs = require('fs');
 
+var postInfoFile = fs.createWriteStream('./postInfos.json', { flags: 'w', encoding: 'utf-8' });
 var client = xmlrpc.createClient('http://www.tottenhamhotspurs.tv/forum/mobiquo/mobiquo.php');
 getConfig();
 
@@ -43,6 +45,7 @@ function getPosts(topicId, postStartNumber) {
 function parsePosts(thread) {
   var postInfos = _.map(thread.posts, function(post) { return postInfo(post); });
   console.log('postInfos', postInfos);
+  postInfoFile.write(JSON.stringify(postInfos, null, 4));
 
   if (thread.posts.length > 0) {
     // Get next posts
@@ -50,6 +53,7 @@ function parsePosts(thread) {
     var lastPostCounter = _.last(thread.posts).post_count;
     if (lastPostCounter < totalPostCount) getPosts(thread.topic_id, lastPostCounter);
   }
+  else postInfoFile.end();
 }
 
 function postInfo(post) {
