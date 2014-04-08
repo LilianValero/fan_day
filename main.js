@@ -4,42 +4,52 @@ var xmlrpc = require('xmlrpc');
 var _ = require('underscore');
 var fs = require('fs');
 
-var postInfoFile = fs.createWriteStream('./postInfos.json', { flags: 'w', encoding: 'utf-8' });
-var client = xmlrpc.createClient('http://www.tottenhamhotspurs.tv/forum/mobiquo/mobiquo.php');
-getConfig();
+var forumContexts = [{ team: 'tottenham', url: 'http://www.tottenhamhotspurs.tv/forum', topForumId: '6', subForumId: '81', topicId: '35872' }];
+var teams = _.map(forumContexts, function(context) { return context.team; });
 
-function getConfig() {
-  callMethod('get_config', [], getForum);
+var args = process.argv.slice(2);
+if (args.length === 0 || !_.contains(teams, args[0])) {
+  console.log('Usage: node main ' + teams.join('|'));
+  process.exit(1);
 }
 
-function getForum(config) {
-  if (config.get_forum) callMethod('get_forum', [], getSubForum);
-  else console.log('No forum available');
+var forumContext = _.find(forumContexts, function(context) { return context.team === args[0]; });
+var postInfoFile = fs.createWriteStream(forumContext.team + 'Posts.json', { flags: 'w', encoding: 'utf-8' });
+var client = xmlrpc.createClient(forumContext.url + '/mobiquo/mobiquo.php');
+getConfig(forumContext);
+
+function getConfig(context) {
+  callMethod('get_config', [], getForum, context);
 }
 
-function getSubForum(forum) {
-  var toDareIsToDoSubForum = _.find(forum, function(subForum) { return subForum.forum_id === '6' });
-  if (!toDareIsToDoSubForum) console.log('Could not find To Dare Is To Do ! sub-forum');
+function getForum(config, context) {
+  if (config.get_forum) callMethod('get_forum', [], getSubForum, context);
+  else console.log('No get_forum available');
+}
+
+function getSubForum(forum, context) {
+  var topForum = _.find(forum, function(subForum) { return subForum.forum_id === context.topForumId });
+  if (!topForum) console.log('Could not find forum with ID ' + context.topForumId);
   else {
-    console.log('getSubForum', toDareIsToDoSubForum);
-    var matchDayChatSubForum = _.find(toDareIsToDoSubForum.child, function(subForum) { return subForum.forum_id === '81' });
-    if (!matchDayChatSubForum) console.log('Could not find Match Day Chat sub-forum');
-    else getTopics(matchDayChatSubForum.forum_id);
+    console.log('topForum', topForum);
+    var subForum = _.find(topForum.child, function(subForum) { return subForum.forum_id === context.subForumId });
+    if (!subForum) console.log('Could not find sub-forum with ID ' + context.subForumId);
+    else getTopics(subForum.forum_id, context);
   }
 }
 
-function getTopics(forumId) {
-  callMethod('get_topic', [forumId], getThread);
+function getTopics(forumId, context) {
+  callMethod('get_topic', [forumId], getThread, context);
 }
 
-function getThread(topics) {
-  // Here we could use e.g. the most recent topic; let's use the TOT vs. ARS match topic with ID 35872
-  getPosts('35872', 0);
+function getThread(topics, context) {
+  // Here we could use e.g. the most recent topic
+  getPosts(context.topicId, 0, context);
 }
 
-function getPosts(topicId, postStartNumber) {
+function getPosts(topicId, postStartNumber, context) {
   var maxPostCountPerRequest = 50
-  callMethod('get_thread', [topicId, postStartNumber, postStartNumber + maxPostCountPerRequest - 1, true], parsePosts);
+  callMethod('get_thread', [topicId, postStartNumber, postStartNumber + maxPostCountPerRequest - 1, true], parsePosts, context);
 }
 
 function parsePosts(thread) {
@@ -66,12 +76,12 @@ function postInfo(post) {
   };
 }
 
-function callMethod(method, params, callback) {
+function callMethod(method, params, callback, context) {
   client.methodCall(method, params, function(err, response) {
     if (err) console.log('Error in ' + method, err);
     else {
       console.log('Response to ' + method, response);
-      callback(response);
+      callback(response, context);
     }
   });
 }

@@ -22,5 +22,5 @@ npm install
 Run `main.js` with:
 
 ```
-node main
+node main tottenham
 ```
