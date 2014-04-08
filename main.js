@@ -77,6 +77,7 @@ function postInfo(post) {
   return {
     timestamp: post.timestamp,
     author: post.post_author_name.toString(charset),
+    icon: post.icon_url,
     content: post.post_content.toString(charset)
   };
 }
