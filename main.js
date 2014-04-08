@@ -4,7 +4,8 @@ var xmlrpc = require('xmlrpc');
 var _ = require('underscore');
 var fs = require('fs');
 
-var forumContexts = [{ team: 'tottenham', url: 'http://www.tottenhamhotspurs.tv/forum', topForumId: '6', subForumId: '81', topicId: '35872' }];
+var forumContexts = [{ team: 'tottenham', url: 'http://www.tottenhamhotspurs.tv/forum', topForumId: '6', subForumId: '81', topicId: '35872' },
+                     { team: 'arsenal', url: 'http://www.goonersworld.co.uk/forum', topForumId: '30', subForumId: '25', topicId: '27077' }];
 var teams = _.map(forumContexts, function(context) { return context.team; });
 
 var args = process.argv.slice(2);
@@ -23,8 +24,8 @@ function getConfig(context) {
 }
 
 function getForum(config, context) {
-  if (config.get_forum) callMethod('get_forum', [], getSubForum, context);
-  else console.log('No get_forum available');
+  if (!config.get_forum) console.log('No get_forum available, trying it anyway');
+  callMethod('get_forum', [], getSubForum, context);
 }
 
 function getSubForum(forum, context) {
@@ -43,16 +44,17 @@ function getTopics(forumId, context) {
 }
 
 function getThread(topics, context) {
+  context.postStartNumber = 0;
   // Here we could use e.g. the most recent topic
-  getPosts(context.topicId, 0, context);
+  getPosts(context.topicId, context);
 }
 
-function getPosts(topicId, postStartNumber, context) {
+function getPosts(topicId, context) {
   var maxPostCountPerRequest = 50
-  callMethod('get_thread', [topicId, postStartNumber, postStartNumber + maxPostCountPerRequest - 1, true], parsePosts, context);
+  callMethod('get_thread', [topicId, context.postStartNumber, context.postStartNumber + maxPostCountPerRequest - 1, true], parsePosts, context);
 }
 
-function parsePosts(thread) {
+function parsePosts(thread, context) {
   var postInfos = _.map(thread.posts, function(post) { return postInfo(post); });
   console.log('postInfos', postInfos);
   postInfoFile.write(JSON.stringify(postInfos, null, 4));
@@ -60,8 +62,11 @@ function parsePosts(thread) {
   if (thread.posts.length > 0) {
     // Get next posts
     var totalPostCount = thread.total_post_num;
-    var lastPostCounter = _.last(thread.posts).post_count;
-    if (lastPostCounter < totalPostCount) getPosts(thread.topic_id, lastPostCounter);
+    var lastPostCounter = context.postStartNumber + thread.posts.length;
+    if (lastPostCounter < totalPostCount) {
+      context.postStartNumber = lastPostCounter;
+      getPosts(thread.topic_id, context);
+    }
   }
   else postInfoFile.end();
 }

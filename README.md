@@ -22,5 +22,7 @@ npm install
 Run `main.js` with:
 
 ```
-node main tottenham
+node main tottenham|arsenal
 ```
+
+This will store fetched post information to a `<team name>Posts.json` file.
