@@ -59,14 +59,12 @@ function parsePosts(thread, context) {
   console.log('postInfos', postInfos);
   postInfoFile.write(JSON.stringify(postInfos, null, 4));
 
-  if (thread.posts.length > 0) {
+  var totalPostCount = thread.total_post_num;
+  var lastPostCounter = context.postStartNumber + thread.posts.length;
+  if (lastPostCounter < totalPostCount) {
     // Get next posts
-    var totalPostCount = thread.total_post_num;
-    var lastPostCounter = context.postStartNumber + thread.posts.length;
-    if (lastPostCounter < totalPostCount) {
-      context.postStartNumber = lastPostCounter;
-      getPosts(thread.topic_id, context);
-    }
+    context.postStartNumber = lastPostCounter;
+    getPosts(thread.topic_id, context);
   }
   else postInfoFile.end();
 }
