@@ -1,4 +1,7 @@
 fan_day
 =======
 
-FanDay
+# Twitter testing tool
+
+## Setup
+
