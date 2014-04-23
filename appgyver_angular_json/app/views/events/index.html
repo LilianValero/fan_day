@@ -1,16 +1,18 @@
 <div ng-app="eventsApp">
 
-  <div ng-controller="IndexCtrl">
-    <div class="topcoat-list__container">
-
-      <ul class="topcoat-list">
-        <li class="topcoat-list__item" hm-tap="open(events.events_id)" ng-repeat="events in eventss">
-          Events: {{ events.name }}
-        </li>
-      </ul>
-
-    </div>
-
+  <div ng-controller="IndexCtrl" >
+      <section class="module">
+          <ol class="discussion">
+              <li ng-class="{true: 'home', false: 'visitor'}[events.home_team]" hm-tap="open(events.events_id)" ng-repeat="events in eventss">
+                  <div class="avatar">
+                      <img src="https://avatars0.githubusercontent.com/u/5627850?s=460" />
+                  </div>
+                  <div class="messages">
+                      <p>{{ events.name }}</p>
+                      <time datetime="2009-11-13T20:00">Alex • 51 min</time>
+                  </div>
+              </li>
+          </ol>
+      </section>
   </div>
-
 </div>
