@@ -9,19 +9,19 @@ module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
-            compass: {
-                options: {
-                    sassDir: 'www/stylesheets',
-                    cssDir: 'dist/stylesheets',
-                    imagesDir: 'www/images',
-                    fontsDir: 'www/fonts',
-                    httpImagesPath: '/images',
-                    relativeAssets: false,
-                    debugInfo: false
-                },
-                dist: {}
-            }
-        });
+        compass: {
+            options: {
+                sassDir: 'www/stylesheets',
+                cssDir: 'dist/stylesheets',
+                imagesDir: 'www/images',
+                fontsDir: 'www/fonts',
+                httpImagesPath: '/images',
+                relativeAssets: false,
+                debugInfo: false
+            },
+            dist: {}
+        }
+    });
 
     grunt.registerTask('default', ['steroids-make','compass']);
 };
