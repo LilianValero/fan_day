@@ -1,3 +1,5 @@
+@import "compass/css3/box";
+
 * {
   -webkit-user-select: none;  /* Disable selection/copy of elements when tapping for a long time */
   -webkit-touch-callout: none; /* Disable touch callouts */
@@ -20,8 +22,7 @@ input, textarea, [contenteditable] * {
   li {
     padding: 0.5rem;
     overflow: hidden;
-    display: flex;
-    display: -webkit-box;
+    @include display-box;
   }
   .avatar {
     width: 40px; // stronger than %

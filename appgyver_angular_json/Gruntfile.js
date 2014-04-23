@@ -1,16 +1,27 @@
-/*
- * Default Gruntfile for AppGyver Steroids
- * http://www.appgyver.com
- *
- * Licensed under the MIT license.
- */
-
 'use strict';
 
 module.exports = function(grunt) {
 
-  grunt.loadNpmTasks("grunt-steroids");
+    // show elapsed time at the end
+    require('time-grunt')(grunt);
 
-  grunt.registerTask("default", ["steroids-make", "steroids-compile-sass"]);
+    // load all grunt tasks
+    require('load-grunt-tasks')(grunt);
 
+    grunt.initConfig({
+            compass: {
+                options: {
+                    sassDir: 'www/stylesheets',
+                    cssDir: 'dist/stylesheets',
+                    imagesDir: 'www/images',
+                    fontsDir: 'www/fonts',
+                    httpImagesPath: '/images',
+                    relativeAssets: false,
+                    debugInfo: false
+                },
+                dist: {}
+            }
+        });
+
+    grunt.registerTask('default', ['steroids-make','compass']);
 };

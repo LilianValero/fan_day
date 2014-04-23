@@ -1,7 +1,7 @@
 {
-  "name": "mySteroidsProject",
+  "name": "FanDayProject",
   "version": "0.0.1",
-  "description": "My awesome AppGyver Steroids project.",
+  "description": "Fan Day AppGyver Steroids project.",
   "repository": "N/A",
   "readme":"N/A",
   "private": true,
@@ -9,9 +9,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "devDependencies": {
-    "grunt-steroids": "0.x"
-  },
+    "devDependencies": {
+        "grunt-steroids": "0.2.x",
+        "grunt-contrib-compass": "0.7.x",
+        "load-grunt-tasks": "0.4.x",
+        "time-grunt": "0.3.x"
+    },
   "license": "none",
   "engines": {
     "steroids": "3.1.9"
