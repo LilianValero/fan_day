@@ -21,6 +21,7 @@ input, textarea, [contenteditable] * {
     padding: 0.5rem;
     overflow: hidden;
     display: flex;
+    display: -webkit-box;
   }
   .avatar {
     width: 40px; // stronger than %
