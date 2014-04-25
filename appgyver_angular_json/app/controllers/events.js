@@ -15,7 +15,7 @@ eventsApp.controller('IndexCtrl', function ($scope, EventsRestangular) {
   $scope.eventss = EventsRestangular.all('events').getList();
 
   // -- Native navigation
-  steroids.view.navigationBar.show("Events index");
+  steroids.view.navigationBar.show("TOT 0 - 1 ARS");
 
 });
 

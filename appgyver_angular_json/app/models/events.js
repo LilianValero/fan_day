@@ -18,6 +18,8 @@ module.factory('EventsRestangular', function(Restangular) {
     RestangularConfigurer.setRequestSuffix('.json');
     RestangularConfigurer.setRestangularFields({
       id: "events_id",
+      author: "author",
+      avatar: "avatar",
       home_team: "home_team"
     });
 

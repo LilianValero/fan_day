@@ -3,14 +3,12 @@
   <div ng-controller="IndexCtrl" >
       <section class="module">
           <ol class="discussion">
-              <li ng-class="{true: 'home', false: 'visitor'}[events.home_team]" hm-tap="open(events.events_id)" ng-repeat="events in eventss">
-                  <div class="avatar">
-                      <img src="https://avatars0.githubusercontent.com/u/5627850?s=460" />
-                  </div>
-                  <div class="messages">
-                      <p>{{ events.name }}</p>
-                      <time datetime="2009-11-13T20:00">Alex • 51 min</time>
-                  </div>
+              <li ng-class="{true: 'home', false: 'home visitor'}[events.home_team]" hm-tap="open(events.events_id)" ng-repeat="events in eventss">
+                  <img class="avatar" ng-src="{{ events.avatar }}"/>
+                  <p class="message">
+                      {{ events.content }}
+                      <time class="timestamp">{{ events.author }} . {{ events.events_id }} minutes ago</time>
+                  </p>
               </li>
           </ol>
       </section>
