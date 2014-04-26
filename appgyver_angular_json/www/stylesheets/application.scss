@@ -30,18 +30,17 @@ ul.discussion {
   max-width: 17em;
   margin: 0 auto;
 }
-.discussion .event {
-  margin: .5em;
-}
 
 .event {
   @include display-box;
-  @include box-direction(row);
-  @include box-align(flex-start);
+  margin: .5em;
   max-width: 100%;
 }
-
-.visitor {
+.event.home {
+  @include box-direction(row);
+  @include box-align(flex-start);
+}
+.event.visitor {
   @include box-direction(reverse);
   @include box-align(end);
 }
@@ -62,19 +61,22 @@ ul.discussion {
 
 .event .message::before {
   position: absolute;
+  height: 0;
+  content: '';
+  border: 6px solid transparent;
+  z-index: 2;
+}
+
+.event.home .message::before {
   top: 0;
   right: auto;
   bottom: auto;
   left: -12px;
-  height: 0;
-  content: '';
-  border: 6px solid transparent;
   border-top-color: #fff;
   border-right-color: #fff;
-  z-index: 2;
 }
 
-.visitor .message::before {
+.event.visitor .message::before {
   top: auto;
   right: -12px;
   bottom: 0;
