@@ -27,10 +27,10 @@ eventsApp.controller('ShowCtrl', function ($scope, $filter, EventsRestangular) {
   // Fetch all objects from the local JSON (see app/models/events.js)
   EventsRestangular.all('events').getList().then(function(events) {
     // Then select the one based on the view's id query parameter
-    $scope.event = $filter('filter')(events, {events_id: steroids.view.params['id']})[0];
+    $scope.event = $filter('filter')(events, {event_id: steroids.view.params['id']})[0];
   });
 
   // -- Native navigation
-  steroids.view.navigationBar.show("Events: " + steroids.view.params.id );
+  steroids.view.navigationBar.show("Event: " + steroids.view.params.id );
 
 });

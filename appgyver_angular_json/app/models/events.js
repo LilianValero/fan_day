@@ -17,7 +17,7 @@ module.factory('EventsRestangular', function(Restangular) {
     RestangularConfigurer.setBaseUrl('http://localhost/data');
     RestangularConfigurer.setRequestSuffix('.json');
     RestangularConfigurer.setRestangularFields({
-      id: "events_id",
+      id: "event_id",
       author: "author",
       avatar: "avatar",
       home_team: "home_team"

@@ -3,11 +3,11 @@
   <div ng-controller="IndexCtrl" >
       <section class="module">
           <ol class="discussion">
-              <li ng-class="{true: 'home', false: 'home visitor'}[event.home_team]" hm-tap="open(event.events_id)" ng-repeat="event in events">
+              <li ng-class="{true: 'home', false: 'home visitor'}[event.home_team]" hm-tap="open(event.event_id)" ng-repeat="event in events">
                   <img class="avatar" ng-src="{{ event.avatar }}"/>
                   <p class="message">
                       {{ event.content }}
-                      <time class="timestamp">{{ event.author }} . {{ event.events_id }} minutes ago</time>
+                      <time class="timestamp">{{ event.author }} . {{ event.event_id }} minutes ago</time>
                   </p>
               </li>
           </ol>
