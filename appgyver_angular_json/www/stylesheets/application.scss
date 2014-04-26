@@ -57,6 +57,16 @@ ul.discussion {
 
 .event .message {
   position: relative;
+  background-color: #fff;
+  padding: .5em;
+  box-shadow: 2px 2px 0px #aaa;
+
+  .timestamp {
+    display: block;
+    margin: .2em;
+    font-size: 80%;
+    color: #444;
+  }
 }
 
 .event .message::before {
@@ -84,17 +94,4 @@ ul.discussion {
   border: 6px solid transparent;
   border-bottom-color: #fff;
   border-left-color: #fff;
-}
-
-.message {
-  background-color: #fff;
-  padding: .5em;
-  box-shadow: 2px 2px 0px #aaa;
-
-  .timestamp {
-    display: block;
-    margin: .2em;
-    font-size: 80%;
-    color: #444;
-  }
 }
