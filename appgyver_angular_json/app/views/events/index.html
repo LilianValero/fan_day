@@ -3,7 +3,7 @@
   <div ng-controller="IndexCtrl" >
       <section class="module">
           <ol class="discussion">
-              <li ng-class="{true: 'home', false: 'home visitor'}[event.home_team]" hm-tap="open(event.event_id)" ng-repeat="event in events">
+              <li class="event" ng-class="{true: 'home', false: 'visitor'}[event.home_team]" hm-tap="open(event.event_id)" ng-repeat="event in events">
                   <img class="avatar" ng-src="{{ event.avatar }}"/>
                   <p class="message">
                       {{ event.content }}

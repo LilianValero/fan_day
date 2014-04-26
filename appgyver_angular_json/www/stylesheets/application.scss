@@ -30,18 +30,18 @@ ul.discussion {
   max-width: 17em;
   margin: 0 auto;
 }
-.discussion .home {
+.discussion .event {
   margin: .5em;
 }
 
-.home {
+.event {
   @include display-box;
   @include box-direction(row);
   @include box-align(flex-start);
   max-width: 100%;
 }
 
-.home.visitor {
+.visitor {
   @include box-direction(reverse);
   @include box-align(end);
 }
@@ -52,15 +52,15 @@ ul.discussion {
   z-index: 1;
 }
 
-.home.visitor .avatar {
+.visitor .avatar {
   box-shadow: 2px 2px 0px #aaa;
 }
 
-.home .message {
+.event .message {
   position: relative;
 }
 
-.home .message::before {
+.event .message::before {
   position: absolute;
   top: 0;
   right: auto;
@@ -74,7 +74,7 @@ ul.discussion {
   z-index: 2;
 }
 
-.home.visitor .message::before {
+.visitor .message::before {
   top: auto;
   right: -12px;
   bottom: 0;
