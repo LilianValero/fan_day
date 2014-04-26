@@ -28,12 +28,11 @@ ul.discussion {
 
 .discussion {
   max-width: 17em;
-  margin: 0 auto;
 }
 
 .event {
   @include display-box;
-  margin: .5em;
+  margin: .5em 0;
   max-width: 100%;
 }
 .event.home {
@@ -60,6 +59,7 @@ ul.discussion {
   background-color: #fff;
   padding: .5em;
   box-shadow: 2px 2px 0px #aaa;
+  max-width: 92%;
 
   .timestamp {
     display: block;
