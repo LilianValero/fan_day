@@ -88,11 +88,11 @@ ul.discussion {
   background-color: #fff;
   padding: .5em;
   box-shadow: 2px 2px 0px #aaa;
-}
 
-.message .timestamp {
-  display: block;
-  margin: .2em;
-  font-size: 80%;
-  color: #444;
+  .timestamp {
+    display: block;
+    margin: .2em;
+    font-size: 80%;
+    color: #444;
+  }
 }
