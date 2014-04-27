@@ -45,19 +45,20 @@ function getTopics(forumId, context) {
 
 function getThread(topics, context) {
   context.postStartNumber = 0;
+  context.postInfos = [];
   // Here we could use e.g. the most recent topic
   getPosts(context.topicId, context);
 }
 
 function getPosts(topicId, context) {
-  var maxPostCountPerRequest = 50
+  var maxPostCountPerRequest = 50;
   callMethod('get_thread', [topicId, context.postStartNumber, context.postStartNumber + maxPostCountPerRequest - 1, true], parsePosts, context);
 }
 
 function parsePosts(thread, context) {
   var postInfos = _.map(thread.posts, function(post) { return postInfo(post); });
   console.log('postInfos', postInfos);
-  postInfoFile.write(JSON.stringify(postInfos, null, 4));
+  context.postInfos = context.postInfos.concat(postInfos);
 
   var totalPostCount = thread.total_post_num;
   var lastPostCounter = context.postStartNumber + thread.posts.length;
@@ -66,7 +67,10 @@ function parsePosts(thread, context) {
     context.postStartNumber = lastPostCounter;
     getPosts(thread.topic_id, context);
   }
-  else postInfoFile.end();
+  else {
+    postInfoFile.write(JSON.stringify(context.postInfos, null, 4));
+    postInfoFile.end();
+  }
 }
 
 function postInfo(post) {
