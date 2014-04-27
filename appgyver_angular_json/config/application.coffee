@@ -4,7 +4,7 @@
 steroids.config.name = "appgyver_angular_json"
 
 # -- Initial Location --
-steroids.config.location = "http://localhost/views/events/index.html"
+steroids.config.location = "http://localhost/views/posts/index.html"
 
 # -- Tab Bar --
 # steroids.config.tabBar.enabled = true
