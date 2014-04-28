@@ -5,9 +5,10 @@
             <ol class="discussion">
                 <li class="post" ng-class="{true: 'home', false: 'visitor'}[post.homeTeam]" ng-repeat="post in posts">
                     <img class="avatar" ng-src="{{ post.icon }}"/>
-                    <p class="message" ng-bind-html-unsafe="post.content | preview:300" >
-                        <time class="timestamp">{{ post.author }} . {{ post.timestamp * 1000 | date:'medium' }}<br></time>
-                    </p>
+                    <div class="message">
+                        <div ng-bind-html-unsafe="post.content | preview:300"></div>
+                        <time class="timestamp">{{ post.author }} . {{ post.timestamp * 1000 | date:'medium' }}</time>
+                    </div>
                 </li>
             </ol>
         </section>
