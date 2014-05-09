@@ -12,20 +12,13 @@ postsApp.controller('IndexCtrl', function($scope, PostsRestangular) {
   steroids.view.navigationBar.show("TOT 0 - 1 ARS posts");
 });
 
-postsApp.filter('preview', function () {
-    return function (text, length, end) {
-        if (isNaN(length))
-            length = 10;
+postsApp.filter('preview', ['$sce', function($sce) {
+  return function(content, maxLength) {
+    if (isNaN(maxLength))
+      maxLength = 10;
+    var end = "...";
 
-        if (end === undefined)
-            end = "...";
-
-        if (text.length <= length || text.length - end.length <= length) {
-            return text;
-        }
-        else {
-            return String(text).substring(0, length-end.length) + end;
-        }
-
-    };
-});
+    var modifiedContent = (content.length <= maxLength) ? content : String(content).substring(0, maxLength - end.length) + end;
+    return $sce.trustAsHtml(modifiedContent);
+  };
+}]);

@@ -6,7 +6,7 @@
                 <li class="post" ng-class="{true: 'home', false: 'visitor'}[post.homeTeam]" ng-repeat="post in posts">
                     <img class="avatar" ng-src="{{ post.icon }}"/>
                     <div class="message">
-                        <div ng-bind-html-unsafe="post.content | preview:300"></div>
+                        <div ng-bind-html="post.content | preview:300"></div>
                         <time class="timestamp">{{ post.author }} . {{ post.timestamp * 1000 | date:'medium' }}</time>
                     </div>
                 </li>
