@@ -3,8 +3,10 @@ var postsApp = angular.module('postsApp', ['PostsModel', 'ngRoute', 'ngTouch']);
 // Index: http://localhost/views/events/index.html
 postsApp.controller('IndexCtrl', function($scope, PostsRestangular) {
 
-  // Fetch all objects from the local JSON (see app/models/events.js)
-  $scope.posts = PostsRestangular.all('posts').getList();
+  // Fetch all objects from the local JSON (see app/models/posts.js)
+  PostsRestangular.all('posts').getList().then(function(posts) {
+    $scope.posts = posts;
+  });
 
   // -- Native navigation
   steroids.view.navigationBar.show("TOT 0 - 1 ARS posts");

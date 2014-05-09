@@ -12,7 +12,9 @@ eventsApp.controller('IndexCtrl', function ($scope, EventsRestangular) {
   };
 
   // Fetch all objects from the local JSON (see app/models/events.js)
-  $scope.events = EventsRestangular.all('events').getList();
+  PostsRestangular.all('events').getList().then(function(events) {
+    $scope.events = events;
+  });
 
   // -- Native navigation
   steroids.view.navigationBar.show("TOT 0 - 1 ARS");
