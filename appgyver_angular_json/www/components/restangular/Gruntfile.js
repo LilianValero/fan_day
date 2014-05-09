@@ -6,13 +6,15 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     meta: {
-      banner: '/**\n' +
-      ' * <%= pkg.description %>\n' +
-      ' * @version v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-      ' * @link <%= pkg.homepage %>\n' +
-      ' * @author <%= pkg.author %>\n' +
-      ' * @license MIT License, http://www.opensource.org/licenses/MIT\n' +
-      ' */\n'
+      banner: [
+                '/**',
+                ' * <%= pkg.description %>',
+                ' * @version v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>' +
+                ' * @link <%= pkg.homepage %>',
+                ' * @author <%= pkg.author %>',
+                ' * @license MIT License, http://www.opensource.org/licenses/MIT',
+                ' */'
+              ].join('\n')
     },
     dirs: {
       dest: 'dist'
@@ -28,11 +30,6 @@ module.exports = function(grunt) {
     },
     zip: {
       '<%= dirs.dest %>/restangular.zip': ['<%= dirs.dest %>/<%= pkg.name %>.js', '<%= dirs.dest %>/<%= pkg.name %>.min.js']
-    },
-    bower: {
-      dev: {
-        dest: '<%= dirs.dest %>/dependencies'
-      }
     },
     bowerInstall: {
         install: {
@@ -78,6 +75,11 @@ module.exports = function(grunt) {
         singleRun: true,
         autoWatch: false
       },
+      debug: {
+        singleRun: false,
+        autoWatch: true,
+        browsers: ['Chrome']
+      },
       travis: {
         singleRun: true,
         autoWatch: false,
@@ -118,8 +120,6 @@ module.exports = function(grunt) {
 
   grunt.renameTask("bower", "bowerInstall");
 
-  grunt.loadNpmTasks('grunt-bower');
-
   grunt.loadNpmTasks('grunt-karma');
 
   grunt.loadNpmTasks('grunt-conventional-changelog');
@@ -131,9 +131,11 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
 
   // Build task.
-  grunt.registerTask('build', ['bowerInstall', 'bower', 'karma:build', 'karma:buildUnderscore', 'concat', 'uglify', 'zip']);
+  grunt.registerTask('build', ['bowerInstall', 'karma:build', 'karma:buildUnderscore', 'concat', 'uglify', 'zip']);
 
   grunt.registerTask('test', ['karma:build', 'karma:buildUnderscore']);
+
+  grunt.registerTask('test-debug', ['karma:debug']);
   
   grunt.registerTask('travis', ['karma:travis', 'karma:travisUnderscore']);
 

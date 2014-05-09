@@ -1,4 +1,4 @@
-var eventsApp = angular.module('eventsApp', ['EventsModel', 'hmTouchevents']);
+var eventsApp = angular.module('eventsApp', ['EventsModel', 'ngRoute', 'ngTouch']);
 
 
 // Index: http://localhost/views/events/index.html

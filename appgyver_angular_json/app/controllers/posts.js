@@ -1,4 +1,4 @@
-var postsApp = angular.module('postsApp', ['PostsModel', 'hmTouchevents']);
+var postsApp = angular.module('postsApp', ['PostsModel', 'ngRoute', 'ngTouch']);
 
 // Index: http://localhost/views/events/index.html
 postsApp.controller('IndexCtrl', function($scope, PostsRestangular) {
